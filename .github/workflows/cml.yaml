@@ -12,7 +12,7 @@ jobs:
         run: |
           # Install requirements
           pip install -r requirements.txt
-          python train.py
+          python classifier.py
 
           # Write your CML report
           echo "## Metrics" >> report.md
