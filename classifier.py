@@ -3,7 +3,7 @@ from sklearn import datasets, svm, metrics
 from sklearn.model_selection import train_test_split
 import pandas as pd
 
-# Parameters
+# Parameters 
 TEST_SIZE = 0.5
 REGULARIZATION = 1.0
 GAMMA = 0.001
