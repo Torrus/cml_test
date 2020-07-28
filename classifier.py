@@ -3,8 +3,10 @@ from sklearn import datasets, svm, metrics
 from sklearn.model_selection import train_test_split
 
 # Parameters
-GAMMA = 0.001
 TEST_SIZE = 0.5
+REGULARIZATION = 1.0
+GAMMA = 0.001
+KERNEL = 'rbf'
 
 # The digits dataset
 digits = datasets.load_digits()
@@ -28,7 +30,9 @@ n_samples = len(digits.images)
 data = digits.images.reshape((n_samples, -1))
 
 # Create a classifier: a support vector classifier
-classifier = svm.SVC(gamma=GAMMA)
+classifier = svm.SVC(C=REGULARIZATION, 
+                    kernel=KERNEL, 
+                    gamma=GAMMA)
 
 # Split data into train and test subsets
 X_train, X_test, y_train, y_test = train_test_split(
