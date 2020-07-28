@@ -13,9 +13,11 @@ jobs:
           # Install requirements
           pip install -r requirements.txt
           python classifier.py
+          python csv_to_markdown.py metrics.csv --delimiter , --hasHeader
 
           # Write your CML report
           echo "## Metrics" >> report.md
-          cat metrics.csv >> report.md
+          cat metrics.txt >> report.md
+          echo "## Confusion matrix" >> report.md
           cml-publish confusion_matrix.png --md >> report.md
           cml-send-comment report.md
