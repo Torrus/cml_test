@@ -6,7 +6,7 @@ import pandas as pd
 # Parameters 
 TEST_SIZE = 0.5
 REGULARIZATION = 1.0
-GAMMA = 0.01
+GAMMA = 0.001
 KERNEL = 'rbf'
 
 # The digits dataset
