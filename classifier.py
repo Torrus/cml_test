@@ -12,12 +12,6 @@ KERNEL = 'rbf'
 # The digits dataset
 digits = datasets.load_digits()
 
-# The data that we are interested in is made of 8x8 images of digits, let's
-# have a look at the first 4 images, stored in the `images` attribute of the
-# dataset.  If we were working from image files, we could load them using
-# matplotlib.pyplot.imread.  Note that each image must have the same size. For these
-# images, we know which digit they represent: it is given in the 'target' of
-# the dataset.
 _, axes = plt.subplots(2, 4)
 images_and_labels = list(zip(digits.images, digits.target))
 for ax, (image, label) in zip(axes[0, :], images_and_labels[:4]):
@@ -25,12 +19,10 @@ for ax, (image, label) in zip(axes[0, :], images_and_labels[:4]):
     ax.imshow(image, cmap=plt.cm.gray_r, interpolation='nearest')
     ax.set_title('Training: %i' % label)
 
-# To apply a classifier on this data, we need to flatten the image, to
-# turn the data in a (samples, feature) matrix:
 n_samples = len(digits.images)
 data = digits.images.reshape((n_samples, -1))
 
-# Create a classifier: a support vector classifier
+# Create a classifier
 classifier = svm.SVC(C=REGULARIZATION, 
                     kernel=KERNEL, 
                     gamma=GAMMA)
@@ -51,9 +43,11 @@ for ax, (image, prediction) in zip(axes[1, :], images_and_predictions[:4]):
     ax.imshow(image, cmap=plt.cm.gray_r, interpolation='nearest')
     ax.set_title('Prediction: %i' % prediction)
 
+# Create report
 report = metrics.classification_report(y_test, predicted, output_dict=True)
 df = pd.DataFrame(report).transpose()
 
+# Output results
 print("Classification report for classifier %s:\n%s\n"
       % (classifier, metrics.classification_report(y_test, predicted)))
 disp = metrics.plot_confusion_matrix(classifier, X_test, y_test)
