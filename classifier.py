@@ -1,6 +1,7 @@
 import matplotlib.pyplot as plt
 from sklearn import datasets, svm, metrics
 from sklearn.model_selection import train_test_split
+import pandas as pd
 
 # Parameters
 TEST_SIZE = 0.5
@@ -50,8 +51,12 @@ for ax, (image, prediction) in zip(axes[1, :], images_and_predictions[:4]):
     ax.imshow(image, cmap=plt.cm.gray_r, interpolation='nearest')
     ax.set_title('Prediction: %i' % prediction)
 
+report = metrics.classification_report(y_test, predicted, output_dict=True)
+df = pd.DataFrame(report).transpose()
+
 print("Classification report for classifier %s:\n%s\n"
       % (classifier, metrics.classification_report(y_test, predicted)))
 disp = metrics.plot_confusion_matrix(classifier, X_test, y_test)
 disp.figure_.suptitle("Confusion Matrix")
 plt.savefig('confusion_matrix.png')
+df.to_csv('metrics.csv')
